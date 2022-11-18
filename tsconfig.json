@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "outDir": "dist/js",
+        "target": "ES2015",
+        "noEmitOnError": true,
+        "noImplicitAny": true
+    },
+    "include": ["app/**/*"]
+}
