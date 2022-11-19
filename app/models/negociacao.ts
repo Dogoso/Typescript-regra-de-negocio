@@ -10,19 +10,19 @@ export class Negociacao {
         this.valor = valor
     }
 
-    get getData() {
+    get getData(): Date {
         return this.data;
     }
 
-    get getQuantidade() {
+    get getQuantidade(): number {
         return this.quantidade;
     }
 
-    get getValor() {
+    get getValor(): number {
         return this.valor;
     }
 
-    get getVolume() {
+    get getVolume(): number {
         return this.valor * this.quantidade;
     }
 
