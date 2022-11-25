@@ -1,3 +1,4 @@
+import { DaysOfWeek } from "../enums/days-of-week.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { MessageView } from "../views/messagem-view.js";
@@ -14,9 +15,12 @@ export class NegociacaoController {
     }
     adicionar() {
         const negociacao = this.negociacaoFactory();
+        if (!this.isMiddleWeekDay(negociacao.data)) {
+            this.messageView.update("A data não corresponde a um dia útil!");
+            return;
+        }
         this.negociacoes.adiciona(negociacao);
-        this.view.update(this.negociacoes);
-        this.messageView.update("Negociação adicionada com sucesso!");
+        this.updateScreen();
         this.limparFormulario();
     }
     negociacaoFactory() {
@@ -31,5 +35,13 @@ export class NegociacaoController {
         this.inputQuantidade.value = "";
         this.inputValor.value = "";
         this.inputData.focus();
+    }
+    isMiddleWeekDay(data) {
+        const DAYOFWEEK = data.getDay();
+        return DAYOFWEEK > DaysOfWeek.SUNDAY && DAYOFWEEK < DaysOfWeek.SATURDAY;
+    }
+    updateScreen() {
+        this.view.update(this.negociacoes);
+        this.messageView.update("Negociação adicionada com sucesso!");
     }
 }

@@ -6,7 +6,7 @@ export class NegociacaoView extends View<Negociacoes> {
 
     private data_formatter: Intl.DateTimeFormat = new Intl.DateTimeFormat();
 
-    template(models: Negociacoes): string {
+    protected template(models: Negociacoes): string {
         const negociacoes = models.listar();
         return `
             <table>
@@ -18,7 +18,7 @@ export class NegociacaoView extends View<Negociacoes> {
                 <tbody>
                     ${negociacoes.map(data => `
                         <tr> 
-                            <td>${this.data_formatter.format(data.data)}</td>
+                            <td>${this.formatDate(data.data)}</td>
                             <td>${data.quantidade}</td>
                             <td>${data.valor}</td>
                         </tr>
@@ -26,6 +26,10 @@ export class NegociacaoView extends View<Negociacoes> {
                 </tbody>
             </table>
         `
+    }
+
+    private formatDate(data: Date): string {
+        return this.data_formatter.format(data)
     }
 
 }

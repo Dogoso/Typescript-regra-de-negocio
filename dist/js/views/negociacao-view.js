@@ -16,7 +16,7 @@ export class NegociacaoView extends View {
                 <tbody>
                     ${negociacoes.map(data => `
                         <tr> 
-                            <td>${this.data_formatter.format(data.data)}</td>
+                            <td>${this.formatDate(data.data)}</td>
                             <td>${data.quantidade}</td>
                             <td>${data.valor}</td>
                         </tr>
@@ -24,5 +24,8 @@ export class NegociacaoView extends View {
                 </tbody>
             </table>
         `;
+    }
+    formatDate(data) {
+        return this.data_formatter.format(data);
     }
 }
