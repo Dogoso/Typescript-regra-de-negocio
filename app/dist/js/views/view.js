@@ -1,6 +1,12 @@
 export class View {
     constructor(seletor, separar) {
-        this.element = document.querySelector(seletor);
+        const queryElement = document.querySelector(seletor);
+        if (queryElement) {
+            this.element = queryElement;
+        }
+        else {
+            throw new Error(`Não foi encontrado uma tag HTML para o seletor ${seletor}`);
+        }
         if (separar) {
             this.separar = separar;
         }
