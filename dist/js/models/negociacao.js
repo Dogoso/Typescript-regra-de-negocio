@@ -10,4 +10,11 @@ export class Negociacao {
     get volume() {
         return this.valor * this.quantidade;
     }
+    static negociacaoFactory(data, quantidade, valor) {
+        const rex = /-/g;
+        const curDate = new Date(data.replace(rex, ","));
+        const quantity = parseInt(quantidade);
+        const value = parseFloat(valor);
+        return new Negociacao(curDate, quantity, value);
+    }
 }

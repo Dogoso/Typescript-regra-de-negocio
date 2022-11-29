@@ -14,7 +14,7 @@ export class NegociacaoController {
         this.view.update(this.negociacoes);
     }
     adicionar() {
-        const negociacao = this.negociacaoFactory();
+        const negociacao = Negociacao.negociacaoFactory(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
         if (!this.isMiddleWeekDay(negociacao.data)) {
             this.messageView.update("A data não corresponde a um dia útil!");
             return;
@@ -22,13 +22,6 @@ export class NegociacaoController {
         this.negociacoes.adiciona(negociacao);
         this.updateScreen();
         this.limparFormulario();
-    }
-    negociacaoFactory() {
-        const rex = /-/g;
-        const curDate = new Date(this.inputData.value.replace(rex, ","));
-        const quantity = parseInt(this.inputQuantidade.value);
-        const value = parseFloat(this.inputValor.value);
-        return new Negociacao(curDate, quantity, value);
     }
     limparFormulario() {
         this.inputData.value = "";

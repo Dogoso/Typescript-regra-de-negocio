@@ -14,14 +14,18 @@ export class NegociacaoController {
     private messageView: MessageView = new MessageView("#mensagemView");
 
     constructor() {
-        this.inputData = document.querySelector("#data");
-        this.inputQuantidade = document.querySelector("#quantidade");
-        this.inputValor = document.querySelector("#valor");
+        this.inputData = document.querySelector("#data") as HTMLInputElement;
+        this.inputQuantidade = document.querySelector("#quantidade") as HTMLInputElement;
+        this.inputValor = document.querySelector("#valor") as HTMLInputElement;
         this.view.update(this.negociacoes);
     }
 
     public adicionar(): void {
-        const negociacao = this.negociacaoFactory();
+        const negociacao = Negociacao.negociacaoFactory(
+            this.inputData.value,
+            this.inputQuantidade.value,
+            this.inputValor.value
+        );
         if(!this.isMiddleWeekDay(negociacao.data)) {
             this.messageView.update("A data não corresponde a um dia útil!")
             return
@@ -29,14 +33,6 @@ export class NegociacaoController {
         this.negociacoes.adiciona(negociacao);
         this.updateScreen();
         this.limparFormulario();
-    }
-
-    private negociacaoFactory(): Negociacao {
-        const rex = /-/g;
-        const curDate = new Date(this.inputData.value.replace(rex, ","));
-        const quantity = parseInt(this.inputQuantidade.value);
-        const value = parseFloat(this.inputValor.value);
-        return new Negociacao(curDate, quantity, value);
     }
 
     private limparFormulario(): void {

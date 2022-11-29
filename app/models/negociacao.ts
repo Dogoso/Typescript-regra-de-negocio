@@ -6,12 +6,19 @@ export class Negociacao {
         public readonly valor: number,
     ) {}
 
-    get data(): Date {
+    public get data(): Date {
         return new Date(this._data.getTime());
     }
 
-    get volume(): number {
+    public get volume(): number {
         return this.valor * this.quantidade;
     }
 
+    public static negociacaoFactory(data: string, quantidade: string, valor: string): Negociacao {
+        const rex = /-/g;
+        const curDate = new Date(data.replace(rex, ","));
+        const quantity = parseInt(quantidade);
+        const value = parseFloat(valor);
+        return new Negociacao(curDate, quantity, value);
+    }
 }
