@@ -1,3 +1,4 @@
+import { inspect } from "../decorators/inspect.js";
 import { tempoDeExeucacao } from "../decorators/negociacao-decorator.js";
 import { DaysOfWeek } from "../enums/days-of-week.js";
 import { Negociacao } from "../models/negociacao.js";
@@ -21,7 +22,8 @@ export class NegociacaoController {
         this.view.update(this.negociacoes);
     }
 
-    @tempoDeExeucacao()
+    @inspect
+    @tempoDeExeucacao(false)
     public adicionar(): void {
         const negociacao = Negociacao.negociacaoFactory(
             this.inputData.value,

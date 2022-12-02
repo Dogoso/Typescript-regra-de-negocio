@@ -1,3 +1,4 @@
+import { escape } from "../decorators/escape.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { View } from "./view.js";
@@ -6,6 +7,7 @@ export class NegociacaoView extends View<Negociacoes> {
 
     private data_formatter: Intl.DateTimeFormat = new Intl.DateTimeFormat();
 
+    @escape
     protected template(models: Negociacoes): string {
         const negociacoes = models.listar();
         return `
