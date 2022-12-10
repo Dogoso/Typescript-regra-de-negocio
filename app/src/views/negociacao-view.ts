@@ -7,7 +7,6 @@ export class NegociacaoView extends View<Negociacoes> {
 
     private data_formatter: Intl.DateTimeFormat = new Intl.DateTimeFormat();
 
-    @escape
     protected template(models: Negociacoes): string {
         const negociacoes = models.listar();
         return `

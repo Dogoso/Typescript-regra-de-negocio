@@ -4,8 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { inspect } from "../decorators/inspect.js";
-import { tempoDeExeucacao } from "../decorators/negociacao-decorator.js";
+import { domInjector } from "../decorators/domInjector.js";
 import { DaysOfWeek } from "../enums/days-of-week.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
@@ -16,9 +15,6 @@ export class NegociacaoController {
         this.negociacoes = new Negociacoes();
         this.view = new NegociacaoView("#negociacao");
         this.messageView = new MessageView("#mensagemView");
-        this.inputData = document.querySelector("#data");
-        this.inputQuantidade = document.querySelector("#quantidade");
-        this.inputValor = document.querySelector("#valor");
         this.view.update(this.negociacoes);
     }
     adicionar() {
@@ -47,6 +43,11 @@ export class NegociacaoController {
     }
 }
 __decorate([
-    inspect,
-    tempoDeExeucacao(false)
-], NegociacaoController.prototype, "adicionar", null);
+    domInjector("#data")
+], NegociacaoController.prototype, "inputData", void 0);
+__decorate([
+    domInjector("#quantidade")
+], NegociacaoController.prototype, "inputQuantidade", void 0);
+__decorate([
+    domInjector("#valor")
+], NegociacaoController.prototype, "inputValor", void 0);
