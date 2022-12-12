@@ -10,3 +10,12 @@ if (form) {
 else {
     throw new Error("Não foi possível inicializar a aplicação, você tem certeza que algum formulário foi criado?");
 }
+const buttonImportar = document.querySelector("#importar");
+if (buttonImportar) {
+    buttonImportar.addEventListener("click", () => {
+        negociacao.importarDados();
+    });
+}
+else {
+    throw new Error("Botão de importação de dados não inicializado, ID provavelmente incorreto.");
+}

@@ -2,6 +2,7 @@ import { domInjector } from "../decorators/domInjector.js";
 import { DaysOfWeek } from "../enums/days-of-week.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { NegociacaoService } from "../services/negociacao-service.js";
 import { MessageView } from "../views/messagem-view.js";
 import { NegociacaoView } from "../views/negociacao-view.js";
 
@@ -15,11 +16,12 @@ export class NegociacaoController {
     private inputValor: HTMLInputElement;
 
     private negociacoes: Negociacoes = new Negociacoes();
-    private view: NegociacaoView = new NegociacaoView("#negociacao");
+    private negociacaoView: NegociacaoView = new NegociacaoView("#negociacao");
     private messageView: MessageView = new MessageView("#mensagemView");
+    private negociacaoService: NegociacaoService = new NegociacaoService();
 
     constructor() {
-        this.view.update(this.negociacoes);
+        this.negociacaoView.update(this.negociacoes);
     }
 
     public adicionar(): void {
@@ -32,9 +34,17 @@ export class NegociacaoController {
             this.messageView.update("A data não corresponde a um dia útil!")
             return
         }
-        this.negociacoes.adiciona(negociacao);
+        this.negociacoes.adicionaNegociacao(negociacao);
         this.updateScreen();
         this.limparFormulario();
+    }
+
+    public importarDados(): void {
+        this.negociacaoService.obterNegociacoesDoDia()
+        .then(negociacoesImported => {
+            this.negociacoes.adicionaNegociacoes(negociacoesImported);
+            this.negociacaoView.update(this.negociacoes);
+        })
     }
 
     private limparFormulario(): void {
@@ -50,7 +60,7 @@ export class NegociacaoController {
     }
 
     private updateScreen(): void {
-        this.view.update(this.negociacoes);
+        this.negociacaoView.update(this.negociacoes);
         this.messageView.update("Negociação adicionada com sucesso!");
     }
 

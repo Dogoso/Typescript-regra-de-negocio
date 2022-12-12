@@ -1,5 +1,3 @@
-import { escape } from "../decorators/escape.js";
-import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { View } from "./view.js";
 
@@ -10,7 +8,7 @@ export class NegociacaoView extends View<Negociacoes> {
     protected template(models: Negociacoes): string {
         const negociacoes = models.listar();
         return `
-            <table>
+            <table class="table table-hover">
                 <thead>
                     <th>DATA</th>
                     <th>QUANTIDADE</th>

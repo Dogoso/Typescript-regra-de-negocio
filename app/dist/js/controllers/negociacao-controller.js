@@ -8,14 +8,16 @@ import { domInjector } from "../decorators/domInjector.js";
 import { DaysOfWeek } from "../enums/days-of-week.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { NegociacaoService } from "../services/negociacao-service.js";
 import { MessageView } from "../views/messagem-view.js";
 import { NegociacaoView } from "../views/negociacao-view.js";
 export class NegociacaoController {
     constructor() {
         this.negociacoes = new Negociacoes();
-        this.view = new NegociacaoView("#negociacao");
+        this.negociacaoView = new NegociacaoView("#negociacao");
         this.messageView = new MessageView("#mensagemView");
-        this.view.update(this.negociacoes);
+        this.negociacaoService = new NegociacaoService();
+        this.negociacaoView.update(this.negociacoes);
     }
     adicionar() {
         const negociacao = Negociacao.negociacaoFactory(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
@@ -23,9 +25,16 @@ export class NegociacaoController {
             this.messageView.update("A data não corresponde a um dia útil!");
             return;
         }
-        this.negociacoes.adiciona(negociacao);
+        this.negociacoes.adicionaNegociacao(negociacao);
         this.updateScreen();
         this.limparFormulario();
+    }
+    importarDados() {
+        this.negociacaoService.obterNegociacoesDoDia()
+            .then(negociacoesImported => {
+            this.negociacoes.adicionaNegociacoes(negociacoesImported);
+            this.negociacaoView.update(this.negociacoes);
+        });
     }
     limparFormulario() {
         this.inputData.value = "";
@@ -38,7 +47,7 @@ export class NegociacaoController {
         return DAYOFWEEK > DaysOfWeek.SUNDAY && DAYOFWEEK < DaysOfWeek.SATURDAY;
     }
     updateScreen() {
-        this.view.update(this.negociacoes);
+        this.negociacaoView.update(this.negociacoes);
         this.messageView.update("Negociação adicionada com sucesso!");
     }
 }

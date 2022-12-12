@@ -7,7 +7,7 @@ export class NegociacaoView extends View {
     template(models) {
         const negociacoes = models.listar();
         return `
-            <table>
+            <table class="table table-hover">
                 <thead>
                     <th>DATA</th>
                     <th>QUANTIDADE</th>
