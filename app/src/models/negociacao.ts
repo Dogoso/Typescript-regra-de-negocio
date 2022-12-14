@@ -1,4 +1,6 @@
-export class Negociacao implements Imprimivel {
+import { Model } from "../interfaces/model";
+
+export class Negociacao implements Model<Negociacao> {
 
     constructor(
         private _data: Date,
@@ -28,6 +30,14 @@ export class Negociacao implements Imprimivel {
             Quantidade: ${this.quantidade}
             Valor: ${this.valor}
         `;
+    }
+
+    public isComparable(negociacao: Negociacao): boolean {
+        return negociacao.valor === this.valor 
+            && negociacao.quantidade === this.quantidade
+            && negociacao.data.getFullYear() === this.data.getFullYear()
+            && negociacao.data.getMonth() === this.data.getMonth()
+            && negociacao.data.getDate() === this.data.getDate();
     }
 
 }

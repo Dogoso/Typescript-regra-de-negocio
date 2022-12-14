@@ -34,6 +34,14 @@ export class NegociacaoController {
     importarDados() {
         this.negociacaoService.obterNegociacoesDoDia()
             .then(negociacoesImported => {
+            return negociacoesImported.filter(filterNegociacao => {
+                return !this.negociacoes
+                    .listar().some(someNegociacao => {
+                    return someNegociacao.isComparable(filterNegociacao);
+                });
+            });
+        })
+            .then(negociacoesImported => {
             this.negociacoes.adicionaNegociacoes(negociacoesImported);
             this.negociacaoView.update(this.negociacoes);
         });

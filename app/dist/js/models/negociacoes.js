@@ -16,4 +16,7 @@ export class Negociacoes {
     toString() {
         return JSON.stringify(this.negociacoes, null, 2);
     }
+    isComparable(negociacoes) {
+        return JSON.stringify(negociacoes) === JSON.stringify(this.negociacoes);
+    }
 }

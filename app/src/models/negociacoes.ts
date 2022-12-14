@@ -1,7 +1,8 @@
+import { Model } from "../interfaces/model.js";
 import { Negociacao } from "./negociacao.js";
 
-export class Negociacoes implements Imprimivel{
-
+export class Negociacoes implements Model<Negociacoes> {
+    
     private negociacoes: Negociacao[] = []
 
     public adicionaNegociacao(negociacao: Negociacao): void {
@@ -20,6 +21,10 @@ export class Negociacoes implements Imprimivel{
 
     public toString(): string {
         return JSON.stringify(this.negociacoes, null, 2);
+    }
+    
+    public isComparable(negociacoes: Negociacoes): boolean {
+        return JSON.stringify(negociacoes) === JSON.stringify(this.negociacoes);
     }
 
 }

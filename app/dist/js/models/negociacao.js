@@ -24,4 +24,11 @@ export class Negociacao {
             Valor: ${this.valor}
         `;
     }
+    isComparable(negociacao) {
+        return negociacao.valor === this.valor
+            && negociacao.quantidade === this.quantidade
+            && negociacao.data.getFullYear() === this.data.getFullYear()
+            && negociacao.data.getMonth() === this.data.getMonth()
+            && negociacao.data.getDate() === this.data.getDate();
+    }
 }
