@@ -9,6 +9,7 @@ import { DaysOfWeek } from "../enums/days-of-week.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { NegociacaoService } from "../services/negociacao-service.js";
+import { imprimir } from "../utils/imprimir.js";
 import { MessageView } from "../views/messagem-view.js";
 import { NegociacaoView } from "../views/negociacao-view.js";
 export class NegociacaoController {
@@ -25,6 +26,7 @@ export class NegociacaoController {
             this.messageView.update("A data não corresponde a um dia útil!");
             return;
         }
+        imprimir(negociacao, this.negociacoes);
         this.negociacoes.adicionaNegociacao(negociacao);
         this.updateScreen();
         this.limparFormulario();

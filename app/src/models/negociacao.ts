@@ -1,4 +1,4 @@
-export class Negociacao {
+export class Negociacao implements Imprimivel {
 
     constructor(
         private _data: Date,
@@ -21,4 +21,13 @@ export class Negociacao {
         const value = parseFloat(valor);
         return new Negociacao(curDate, quantity, value);
     }
+
+    public toString(): string {
+        return `
+            Data: ${this.data}
+            Quantidade: ${this.quantidade}
+            Valor: ${this.valor}
+        `;
+    }
+
 }

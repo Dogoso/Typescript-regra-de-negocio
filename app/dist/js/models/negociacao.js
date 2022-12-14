@@ -17,4 +17,11 @@ export class Negociacao {
         const value = parseFloat(valor);
         return new Negociacao(curDate, quantity, value);
     }
+    toString() {
+        return `
+            Data: ${this.data}
+            Quantidade: ${this.quantidade}
+            Valor: ${this.valor}
+        `;
+    }
 }
